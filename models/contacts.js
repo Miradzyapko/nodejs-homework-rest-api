@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
-const Joi = require('joi')
-const handleMongooseError = require("../middlewars/handleMongooseError");
-const contactShema = new mongoose.Schema({
+const { Schema, model } = require("mongoose");
+const Joi = require("joi");
+const { handleMongooseError, runValidatorsAtUpdate } = require("../middlewars/index");
+const contactSchema = new Schema({
     name: {
       type: String,
       required: [true, 'Set name for contact'],
@@ -14,27 +14,31 @@ const contactShema = new mongoose.Schema({
     },
     favorite: {
       type: Boolean,
+     
       default: false,
     },
   })
-  contactShema.post("save", handleMongooseError);
+  contactSchema.post("save", handleMongooseError);
+  contactSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
+  contactSchema.post("findOneAndUpdate", handleMongooseError);
   const addSchema = Joi.object({
-    name: Joi.string().required().messages({"any.required":`"name" missing required field`}),
+    name: Joi.string().required(),
     email: Joi.string().email(),
     phone: Joi.string().required(), 
-    favorite: Joi.boolean().required(),
+    favorite: Joi.boolean(),
   }); 
   const updateFavoriteSchema = Joi.object({
     favorite: Joi.boolean().required(),
-  })
+  });
+  /*
   const schemas = {
     addSchema,
-    updateFavoriteSchema,
-}
+    updateFavoriteSchema
+} */
 
- 
+const Contact = model("contact", contactSchema);
   module.exports = {
-contactShema, 
-schemas,
-addSchema
+Contact,
+updateFavoriteSchema,
+addSchema,
   };
