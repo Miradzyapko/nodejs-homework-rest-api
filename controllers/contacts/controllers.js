@@ -1,8 +1,8 @@
-  const { HttpError } = require("../helpers/index"); 
+  const { HttpError } = require("../../helpers/index"); 
   
 /* const Joi = require('joi') */
 
-  const { Contact }   = require("../models/contacts");
+  const { Contact }   = require("../../models/contacts");
 
 /*
 const contactAddSchema = Joi.object({
@@ -13,12 +13,10 @@ const contactAddSchema = Joi.object({
 
 /* const Contact = mongoose.model("Contact", contactShema); */
 const getAll = async(req, res) => {
- const result = await Contact.find();
+  const {_id: owner} = req.user;
+ const result = await Contact.find({owner}, "-createdAt -updatedAt". populate("owner", "email"));
  res.json(result);
   }
- 
-
-
 
 
 
@@ -35,8 +33,9 @@ const  getContactById = async (req, res) => {
 }
 
 const addContact = async (req, res) => {
+  const {_id: owner} = req.user;
 
-    const result = await Contact.create(req.body);
+    const result = await Contact.create(...req.body, owner);
     res.status(200).json(result);
 
 }
