@@ -12,18 +12,18 @@ const contactAddSchema = Joi.object({
 }); */
 
 /* const Contact = mongoose.model("Contact", contactShema); */
-const getAll = async(req, res) => {
+const getAll = async (req, res) => {
   const {_id: owner} = req.user;
- const result = await Contact.find({owner}, "-createdAt -updatedAt". populate("owner", "email"));
+ const result = await Contact.find({owner}, "-createdAt -updatedAt".populate("owner", "email"));
  res.json(result);
   }
 
 
 
-const  getContactById = async (req, res) => {
- 
+const  getContactById = async(req, res) => {
+  const {_id: owner} = req.user;
     const { id } = req.params;
-    const result = await Contact.findById(id);
+    const result = await Contact.findById({_id: id, owner});
     if(!result) {
       throw HttpError(404, `Contact with '${id}' is not found!`);
     } 
@@ -33,9 +33,9 @@ const  getContactById = async (req, res) => {
 }
 
 const addContact = async (req, res) => {
-  const {_id: owner} = req.user;
+  const {_id} = req.user;
 
-    const result = await Contact.create(...req.body, owner);
+    const result = await Contact.create({...req.body, owner: _id});
     res.status(200).json(result);
 
 }

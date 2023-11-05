@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
-const { handleMongooseError, runValidatorsAtUpdate } = require("../middlewars/index");
+const { handleMongooseError, runValidatorsAtUpdate } = require("./hooks");
 const userSchema = new Schema({
     
         password: {
@@ -17,12 +17,14 @@ const userSchema = new Schema({
           enum: ["starter", "pro", "business"],
           default: "starter"
         },
-        token: String
+        token: {
+          type: String,
+         
+        }
       }, 
-      {versionKey: false, timestamp: true
-      });
+      { versionKey: false, timestamps: true});
       userSchema.post("save", handleMongooseError);
-      userSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
+       userSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
       userSchema.post("findOneAndUpdate", handleMongooseError);  
   const User = model("user", userSchema);
   const joiRegisterSchema = Joi.object({

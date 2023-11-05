@@ -1,6 +1,6 @@
 const express = require("express");
 const { updateFavoriteSchema, addSchema } = require("../../models/contacts");
-const  controllers  = require("../../controllers/contacts/index");
+const   controllers  = require("../../controllers/contacts/controllers");
 const  { isValidId } = require("../../middlewars/index");
 const   { validateBody } = require("../../middlewars/index");
 const { isEmptyBody } = require("../../middlewars/index");
@@ -9,8 +9,8 @@ const contactAddValidate = validateBody(addSchema);
 const contactUpdateFavoriteValidate = validateBody(updateFavoriteSchema);
 const { authenticate }  = require("../../middlewars/index");
 /* const  router  = require("../../app"); */
-/* router.use(authenticate); */
-contactsRouter.get("/", controllers.getAll);
+/* contactsRouter.use(authenticate); */
+contactsRouter.get("/",  controllers.getAll);
 
 contactsRouter.get("/:id", isValidId, authenticate, controllers.getContactById);
 
@@ -20,7 +20,7 @@ contactsRouter.post("/", isEmptyBody, contactAddValidate, authenticate, controll
 
 contactsRouter.delete("/:id", isValidId, authenticate, controllers.deleteContact);
 
-contactsRouter.put("/:id", isValidId, isEmptyBody, contactAddValidate,authenticate, controllers.updateContact);
+contactsRouter.put("/:id", isValidId, isEmptyBody, contactAddValidate, authenticate, controllers.updateContact);
 contactsRouter.patch("/:id/favorite", isValidId,  contactUpdateFavoriteValidate, authenticate, controllers.updateFavorite);
 
 module.exports = contactsRouter;

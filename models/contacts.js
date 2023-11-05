@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 const Joi = require("joi");
-const { handleMongooseError, runValidatorsAtUpdate } = require("../middlewars/index");
+const { handleMongooseError, runValidatorsAtUpdate } = require("./hooks");
 const contactSchema = new Schema({
     name: {
       type: String,
@@ -21,7 +21,7 @@ const contactSchema = new Schema({
       type: Schema.Types.ObjectId,
       ref: 'user',
     }
-  })
+  }, { versionKey: false, timestamps: true});
   contactSchema.post("save", handleMongooseError);
   contactSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
   contactSchema.post("findOneAndUpdate", handleMongooseError);
