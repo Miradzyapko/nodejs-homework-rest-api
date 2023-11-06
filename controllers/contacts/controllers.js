@@ -1,5 +1,5 @@
   const { HttpError } = require("../../helpers/index"); 
-  
+ 
 /* const Joi = require('joi') */
 
   const { Contact }   = require("../../models/contacts");
@@ -13,17 +13,17 @@ const contactAddSchema = Joi.object({
 
 /* const Contact = mongoose.model("Contact", contactShema); */
 const getAll = async (req, res) => {
-  const {_id: owner} = req.user;
- const result = await Contact.find({owner}, "-createdAt -updatedAt".populate("owner", "email"));
+  const {_id } = req.user;
+ const result = await Contact.find({owner: _id}, "-createdAt -updatedAt".populate("owner", "_id email"));
  res.json(result);
   }
 
 
 
 const  getContactById = async(req, res) => {
-  const {_id: owner} = req.user;
+  
     const { id } = req.params;
-    const result = await Contact.findById({_id: id, owner});
+    const result = await Contact.findById({id});
     if(!result) {
       throw HttpError(404, `Contact with '${id}' is not found!`);
     } 
@@ -85,4 +85,4 @@ const updateFavorite = async (req, res) => {
     updateContact ,
     deleteContact,
     updateFavorite,
-  };
+  }

@@ -1,6 +1,6 @@
 const express = require("express");
 const  authRouter = express.Router();
-
+const { upload } = require("../../middlewars/index");
 /* authRouter.get("/"); */
 const   { validateBody } = require("../../middlewars/index");
 const { isEmptyBody } = require("../../middlewars/index");
@@ -13,4 +13,5 @@ authRouter.post("/register", isEmptyBody, userSingupValidate, authcontroller.reg
 authRouter.post("/login", userSigninValidate, authcontroller.login);
 authRouter.get("/current", authenticate, authcontroller.getCurrent);
 authRouter.post("/logout", authenticate, authcontroller.logout);
+authRouter.patch("/avatars", authenticate, upload.single("avatar"), authcontroller.addAvatar)
 module.exports = authRouter;
