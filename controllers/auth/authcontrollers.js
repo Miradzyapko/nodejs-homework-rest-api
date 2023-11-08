@@ -1,10 +1,10 @@
- const { HttpError } = require("../../helpers/index"); 
+ /* const Joi = require('joi') */
+import {nanoid}  from 'nanoid';
+const { HttpError, sendEmail } = require("../../helpers/index"); 
   const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
-/* const Joi = require('joi') */
-
   const { User }   = require("../../models/users");
-  
+  const { PROJECT_URL } = process.env;
   const register = async (req, res) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
@@ -13,8 +13,16 @@ const gravatar = require("gravatar");
     };
     
     const hashPassword = await bcrypt.hash(password, 10);
+    const verificationToken = nanoid();
     const avatarURL = gravatar.url(email);
-    const newUser = await User.create({...req.body, password: hashPassword,  avatarURL});
+    const newUser = await User.create({...req.body, password: hashPassword, verificationToken, avatarURL});
+    const verifyEmail = {
+      to: email,
+      subject: "Verify email",
+      html: `<a target ="blank" href = "${PROJECT_URL}/api/users/verify/${verificationToken}">"Click to verify email"></a>`
+    };
+      await sendEmail(verifyEmail);
+    
     res.status(201).json({
         email: newUser.email,
         
