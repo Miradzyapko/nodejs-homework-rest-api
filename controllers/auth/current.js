@@ -6,10 +6,10 @@ const { HttpError } = require("../../helpers/index");
     if(!user) {
       throw new HttpError(401, `Not authorized`);
     }
-    const { id, email } = req.user;
+    const { id, email, subscription } = req.user;
   
     res.json({
-    id, email
+    id, email, subscription,
       
     })
     

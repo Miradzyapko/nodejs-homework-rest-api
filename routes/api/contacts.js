@@ -10,9 +10,9 @@ const contactUpdateFavoriteValidate = validateBody(updateFavoriteSchema);
 const { authenticate }  = require("../../middlewars/index");
 /* const  router  = require("../../app"); */
 /* contactsRouter.use(authenticate); */
-contactsRouter.get("/",  controllers.getAll);
+contactsRouter.get("/", authenticate, controllers.getAll);
 
-contactsRouter.get("/:id", isValidId, authenticate, controllers.getContactById);
+contactsRouter.get("/:id", isValidId,  controllers.getContactById);
 
 contactsRouter.post("/", isEmptyBody, contactAddValidate, authenticate, controllers.addContact);
 

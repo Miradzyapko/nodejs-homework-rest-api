@@ -30,7 +30,7 @@ const userSchema = new Schema({
   const joiRegisterSchema = Joi.object({
     password: Joi.string().required(),
     email: Joi.string().email().required(),
-    subscription: Joi.string()
+    subscription: Joi.string(),
     
   }); 
   const joiLoginSchema = Joi.object({
