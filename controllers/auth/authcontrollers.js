@@ -13,7 +13,7 @@ const gravatar = require("gravatar");
     };
     
     const hashPassword = await bcrypt.hash(password, 10);
-    const verificationToken = shortid();
+    const verificationToken = shortid;
     const avatarURL = gravatar.url(email);
     const newUser = await User.create({...req.body, password: hashPassword, verificationToken, avatarURL});
     const verifyEmail = {
@@ -24,7 +24,10 @@ const gravatar = require("gravatar");
       await sendEmail(verifyEmail);
     
     res.status(201).json({
+      user: {
         email: newUser.email,
+        avatarURL,
+      }
         
       
     });

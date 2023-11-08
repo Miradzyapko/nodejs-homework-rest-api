@@ -57,7 +57,7 @@ const userSchema = new Schema({
   }); 
   const joiEmailSchema = Joi.object({
   
-    email: Joi.string().email().required()
+    email: Joi.string().required(),
     
     
   }); 

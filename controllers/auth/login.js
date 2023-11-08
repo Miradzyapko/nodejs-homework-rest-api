@@ -3,7 +3,8 @@ const { HttpError } = require("../../helpers/index");
  const bcrypt = require("bcryptjs");
   const jwt = require("jsonwebtoken");
   const { SECRET_KEY } = process.env;
-const login = async(req, res) => {
+const login = async(req, res, next) => {
+  try {
     const { email, password } = req.body;
     const user = await User.findOne({email});
     if(!user) {
@@ -23,6 +24,10 @@ const login = async(req, res) => {
      res.json({token,
    
   });
-    };
+    } catch(error) {
+      next(error);
+    }
+  };
+
     module.exports = login;
   
