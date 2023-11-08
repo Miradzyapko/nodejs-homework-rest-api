@@ -12,38 +12,45 @@ const contactAddSchema = Joi.object({
 }); */
 
 /* const Contact = mongoose.model("Contact", contactShema); */
-const getAll = async(req, res) => {
+const getAll = async(req, res, next) => {
+  try {
  const result = await Contact.find();
  res.json(result);
-  }
+}
+catch(error) {
+ next(error); 
  
+}
+};
 
 
-
-
-
-const  getContactById = async (req, res) => {
- 
+const  getContactById = async (req, res, next) => {
+  try {
     const { id } = req.params;
     const result = await Contact.findById(id);
     if(!result) {
-      throw HttpError(404, `Contact with '${id}' is not found!`);
+      throw  HttpError(404, `Contact with '${id}' is not found!`);
     } 
 
     res.json(result);
-  
-}
-
-const addContact = async (req, res) => {
-
+  } catch (error) {
+    next(error);
+  }
+};
+ 
+const addContact = async (req, res, next) => {
+try {
     const result = await Contact.create(req.body);
-    res.status(200).json(result);
+    res.status(201).json(result);
+  } catch (error) {
+    next(error);
+  }
+};
 
-}
  
 
-const deleteContact =  async (req, res) => {
- 
+const deleteContact =  async (req, res, next) => {
+ try {
   const { id } = req.params;
   const result = await Contact.findByIdAndRemove(id);
   if (!result) {
@@ -51,31 +58,44 @@ const deleteContact =  async (req, res) => {
   }
   res.json({
   message:"Contact deleted!"
-  })
-    }
-  
+  });
+    
+  } catch (error) {
+    next(error);
+  }
+};
 
-const updateContact =  async (req, res) => {
- 
+const updateContact =  async (req, res, next) => {
+ try {
     
     const { id } = req.params;
-    const result = await Contact.findByIdAndUpdate(id, req.body,{ new: true });
+    const result = await Contact.findByIdAndUpdate(id, req.body,{ new: true,});
     if (!result) {
       throw  HttpError(404, `Contact with '${id}' is not found!`);
     }
     res.json(result);
 
+} catch (error) {
+  next(error);
 }
-const updateFavorite = async (req, res) => {
-  const { id } = req.params;
+};
 
-  const result = await Contact.findByIdAndUpdate(id, req.body,{ new: true });
+const updateFavorite = async (req, res, next) => {
+  try {
+  const { id } = req.params;
+  const { favorite } = req.body;
+
+  const result = await Contact.findByIdAndUpdate(id, {favorite},{ new: true, });
   if (!result) {
-      throw  HttpError(404, `Contact with '${id}' is not found!`);
+      throw  HttpError(400, `missing field favorite`);
   }
   res.json(result);
   console.log(result);
 }
+catch (error) {
+  next(error);
+}
+};
 
 
 

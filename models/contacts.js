@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+
 const Joi = require("joi");
 const { handleMongooseError, runValidatorsAtUpdate } = require("../middlewars/index");
 const contactSchema = new Schema({
@@ -17,13 +18,15 @@ const contactSchema = new Schema({
      
       default: false,
     },
-  })
+  },
+    { versionKey: false, timestamps: true});
+  
   contactSchema.post("save", handleMongooseError);
   contactSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
   contactSchema.post("findOneAndUpdate", handleMongooseError);
   const addSchema = Joi.object({
     name: Joi.string().required(),
-    email: Joi.string().email(),
+    email: Joi.string().email().required(),
     phone: Joi.string().required(), 
     favorite: Joi.boolean(),
   }); 
