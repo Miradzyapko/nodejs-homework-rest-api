@@ -1,5 +1,5 @@
  /* const Joi = require('joi') */
-import {nanoid}  from 'nanoid';
+const shortid = require ("shortid");
 const { HttpError, sendEmail } = require("../../helpers/index"); 
   const bcrypt = require("bcryptjs");
 const gravatar = require("gravatar");
@@ -13,7 +13,7 @@ const gravatar = require("gravatar");
     };
     
     const hashPassword = await bcrypt.hash(password, 10);
-    const verificationToken = nanoid();
+    const verificationToken = shortid();
     const avatarURL = gravatar.url(email);
     const newUser = await User.create({...req.body, password: hashPassword, verificationToken, avatarURL});
     const verifyEmail = {
