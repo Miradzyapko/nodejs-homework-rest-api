@@ -36,12 +36,14 @@ async function removeContact(id) {
   return result;
 }
 
-const addContact = async (data) => {
+const addContact = async ({name, email, phone}) => {
   // ...твій код. Повертає об'єкт доданого контакту.
   const contacts = await listContacts();
   const newContact = {
      id : uniqid(),
-     ...data,
+     name,
+     email,
+     phone,
   }
   contacts.push(newContact);
   await fs.writeFile(contactsPath, JSON.stringify(contacts, null, 2));

@@ -24,7 +24,8 @@
     "eslint-config-standard": "16.0.3",
     "eslint-plugin-import": "2.25.3",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "5.2.0"
+    "eslint-plugin-promise": "5.2.0",
+    "nodemon": "^3.0.1"
   },
   "description": "Wykonaj forka tego repozytorium, aby wykonywać zadania domowe (2-6). Fork utworzy repozytorium na Twoim koncie na http://github.com",
   "main": ".eslintrc.js",

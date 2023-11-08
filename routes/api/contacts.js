@@ -6,9 +6,9 @@ const contactService = require('../../models/contacts/index');
 
 
 const contactAddSchema = Joi.object({
-  name: Joi.string().required().messages({"any.required":`"name" missing required field`}),
-  email: Joi.string().email(),
-  phone: Joi.string().required()
+  name: Joi.string().required(),
+  email: Joi.string().required(),
+  phone: Joi.string().required(),
 });
 
 
@@ -32,7 +32,7 @@ contactsRouter.get('/:contactId', async (req, res, next) => {
     const { contactId } = req.params;
     const result = await contactService.getContactById(contactId);
     if(!result) {
-      throw HttpError(404, `Contact with '${contactId}' is not found!`);
+      throw  HttpError(404, `Contact with '${contactId}' is not found!`);
     } 
 
     res.json(result);
@@ -43,10 +43,10 @@ contactsRouter.get('/:contactId', async (req, res, next) => {
 
 contactsRouter.post('/', async (req, res, next) => {
   try {
-  
+ 
     const { error } = contactAddSchema.validate(req.body);
     if (error) {
-      throw HttpError(400, error.message);
+      throw HttpError(400, "missing required name field");
     }
     const result = await contactService.addContact(req.body);
     res.status(200).json(result);
@@ -68,7 +68,7 @@ contactsRouter.delete('/:contactId', async (req, res, next) => {
   })
     }
     catch(error) {
-      next (error);
+      next(error);
     }
 })
 contactsRouter.put('/:contactId', async (req, res, next) => {
@@ -79,7 +79,7 @@ contactsRouter.put('/:contactId', async (req, res, next) => {
     }
     const { error } = contactAddSchema.validate(req.body);
     if (error) {
-      throw HttpError(400, error.message);
+      throw  HttpError(400, `Missing fields`);
     }
     const { contactId } = req.params;
     const result = await contactService.updateContact(contactId, req.body);
