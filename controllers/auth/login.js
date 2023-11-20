@@ -3,7 +3,8 @@ const { HttpError } = require("../../helpers/index");
  const bcrypt = require("bcryptjs");
   const jwt = require("jsonwebtoken");
   const { SECRET_KEY } = process.env;
-const login = async(req, res) => {
+const login = async(req, res, next) => {
+  try {
     const { email, password } = req.body;
     const user = await User.findOne({email});
     if(!user) {
@@ -13,6 +14,7 @@ const login = async(req, res) => {
     if(!passwordCompare) {
       throw HttpError(401, `Email or password invalid`);
     }
+    if(!user.verify) throw HttpError(404, "User not found");
     const payload = {
       id: user._id,
     }
@@ -26,6 +28,10 @@ const login = async(req, res) => {
       }
    
   });
-    };
+    } catch(error) {
+      next(error);
+    }
+  };
+
     module.exports = login;
   
