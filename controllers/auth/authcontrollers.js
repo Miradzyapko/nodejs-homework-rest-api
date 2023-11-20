@@ -1,6 +1,6 @@
  const { HttpError } = require("../../helpers/index"); 
   const bcrypt = require("bcryptjs");
-const gravatar = require("gravatar");
+
 /* const Joi = require('joi') */
 
   const { User }   = require("../../models/users");
@@ -10,20 +10,17 @@ const gravatar = require("gravatar");
     const user = await User.findOne({ email });
     if(user) {
       throw HttpError(409, `${email}  already in use`)
-    };
-    
+    }
     const hashPassword = await bcrypt.hash(password, 10);
-    const avatarURL = gravatar.url(email);
-    const newUser = await User.create({...req.body, password: hashPassword,  avatarURL});
+    const newUser = await User.create({...req.body, password: hashPassword});
     res.status(201).json({
       "user": {
         email: newUser.email,
         subscription: newUser.subscription,
-      } 
-      
-    });
+      }
+    })
     
-     };
+     }
     
      module.exports =  register;
 
