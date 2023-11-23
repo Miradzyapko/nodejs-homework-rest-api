@@ -1,6 +1,6 @@
 const express = require("express");
 const { updateFavoriteSchema, addSchema } = require("../../models/contacts");
-const   controllers  = require("../../controllers/contacts/controllers");
+const   controllers  = require("../../controllers/contacts/index");
 const  { isValidId } = require("../../middlewars/index");
 const   { validateBody } = require("../../middlewars/index");
 const { isEmptyBody } = require("../../middlewars/index");

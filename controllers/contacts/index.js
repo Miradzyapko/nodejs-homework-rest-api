@@ -1,9 +1,9 @@
-const getAll = require("../contacts/controllers");
-const  getContactById = require("../contacts/controllers");
-const   addContact = require("../contacts/controllers");
-const deleteContact = require("../contacts/controllers");
-const  updateContact = require("../contacts/controllers");
-const  updateFavorite = require("../contacts/controllers");
+const getAll = require("./controllers");
+const  getContactById = require("./controllers");
+const   addContact = require("./controllers");
+const deleteContact = require("./controllers");
+const  updateContact = require("./controllers");
+const  updateFavorite = require("./controllers");
 
 const { ctrlWrapper } = require("../../helpers/index");
 module.exports = {

@@ -1,7 +1,7 @@
 const { Schema, model } = require("mongoose");
 
 const Joi = require("joi");
-const { handleMongooseError, runValidatorsAtUpdate } = require("../middlewars/index");
+const { handleMongooseError, runValidatorsAtUpdate } = require("./hooks");
 const contactSchema = new Schema({
     name: {
       type: String,

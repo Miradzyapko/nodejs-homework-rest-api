@@ -1,8 +1,8 @@
-  const { HttpError } = require("../helpers/index"); 
+  const  HttpError  = require("./index"); 
   
 /* const Joi = require('joi') */
 
-  const { Contact }   = require("../models/contacts");
+  const { Contact }   = require("../../models/contacts");
 
 /*
 const contactAddSchema = Joi.object({
@@ -17,6 +17,7 @@ const getAll = async(req, res, next) => {
  const result = await Contact.find();
  res.json(result);
 }
+
 catch(error) {
  next(error); 
  

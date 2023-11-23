@@ -1,11 +1,11 @@
-const register = require("../auth/authcontrollers");
-const login = require("../auth/login");
-const logout = require("../auth/logout")
-const verify = require("../auth/verifyEmail")
+const register = require("./authcontrollers");
+const login = require("./login");
+const logout = require("./logout")
+const verify = require("./verifyEmail")
 const { ctrlWrapper } = require("../../helpers/index");
-const getCurrent = require("../auth/current");
-const addAvatar = require("../auth/avatar")
-const resendVerifyEmail = require("../auth/resendVerify");
+const getCurrent = require("./current");
+const addAvatar = require("./avatar")
+const resendVerifyEmail = require("./resendVerify");
 module.exports = {
 register: ctrlWrapper(register),
 login: ctrlWrapper(login),
