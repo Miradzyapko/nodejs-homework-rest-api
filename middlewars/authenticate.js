@@ -1,4 +1,4 @@
-const  { HttpError } = require("../helpers/Errors"); 
+const  { HttpError } = require("../helpers/index"); 
 /* const { ctrlWrapper } = require("../helpers/index"); */
 const { User }   = require("../models/users");
 const jwt = require("jsonwebtoken");
