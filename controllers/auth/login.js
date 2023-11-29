@@ -1,4 +1,4 @@
-const { HttpError } = require("../../helpers/index"); 
+const { HttpError } = require("../../helpers/Errors"); 
  const { User  } = require("../../models/users");
  const bcrypt = require("bcryptjs");
   const jwt = require("jsonwebtoken");

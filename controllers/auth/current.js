@@ -1,5 +1,5 @@
 const { User }   = require("../../models/users");
-const { HttpError } = require("../../helpers/index"); 
+const { HttpError } = require("../../helpers/Errors"); 
   const getCurrent = async (req, res) => {
     const { _id } = req.user;
     const user = await User.findById(_id);

@@ -5,7 +5,7 @@ const deleteContact = require("../contacts/controllers");
 const  updateContact = require("../contacts/controllers");
 const  updateFavorite = require("../contacts/controllers");
 
-const { ctrlWrapper } = require("../../helpers/index");
+const { ctrlWrapper } = require("../../helpers/index.js");
 module.exports = {
     getAll: ctrlWrapper(getAll),
     getContactById: ctrlWrapper(getContactById),

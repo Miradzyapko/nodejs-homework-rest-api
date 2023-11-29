@@ -1,8 +1,8 @@
-  const { HttpError } = require("../helpers/index"); 
+  const  { HttpError }  = require('../../helpers/index'); 
   
 /* const Joi = require('joi') */
 
-  const { Contact }   = require("../models/contacts");
+  const { Contact }   = require("../../models/contacts");
 
 /*
 const contactAddSchema = Joi.object({
