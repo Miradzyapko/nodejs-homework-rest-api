@@ -1,7 +1,7 @@
 const { HttpError } = require("../../helpers/index"); 
  const { User  } = require("../../models/users");
  const { PROJECT_URL } = process.env;
- const {sendEmail} = require("../../helpers/index");
+ const { sendEmail } = require("../../helpers/index");
 
  const resendVerifyEmail = async (req, res) => {
     const {email} = req.body;
