@@ -1,4 +1,4 @@
- const  HttpError  = require("../../helpers/index"); 
+ const  { HttpError }  = require("../../helpers/index"); 
   const bcrypt = require("bcryptjs");
 
 /* const Joi = require('joi') */

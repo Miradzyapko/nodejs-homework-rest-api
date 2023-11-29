@@ -17,12 +17,19 @@ const userSchema = new Schema({
           enum: ["starter", "pro", "business"],
           default: "starter"
         },
-        token: {
+        token: String,
+        avatarURL: String,
+        verify: {
+          type: Boolean,
+          default: false,
+        },
+        verificationToken: {
           type: String,
-         
-        }
-      }, 
-      { versionKey: false, timestamps: true});
+          required: [true, 'Verify token is required'],
+        },
+      },
+      { versionKey: false, timestamp: true }
+    );
       userSchema.post("save", handleMongooseError);
        userSchema.pre("findOneAndUpdate", runValidatorsAtUpdate);
       userSchema.post("findOneAndUpdate", handleMongooseError);  
@@ -33,6 +40,9 @@ const userSchema = new Schema({
     subscription: Joi.string(),
     
   }); 
+  const joiEmailSchema = Joi.object({
+    email: Joi.string().required(),
+  });
   const joiLoginSchema = Joi.object({
     password: Joi.string().required(),
     email: Joi.string().email().required()
@@ -42,5 +52,6 @@ const userSchema = new Schema({
   module.exports = {
     User,
     joiRegisterSchema,
-    joiLoginSchema
+    joiLoginSchema,
+    joiEmailSchema,
   }

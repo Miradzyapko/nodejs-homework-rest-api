@@ -1,4 +1,4 @@
-  const  HttpError  = require("./index"); 
+  const { HttpError } = require("../../helpers/index"); 
   
 /* const Joi = require('joi') */
 
