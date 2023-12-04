@@ -18,6 +18,7 @@ const sendEmail = async (data) => {
 
  await transport.sendMail(email);
  return true;
+ 
 } catch (error) {
  
 }
