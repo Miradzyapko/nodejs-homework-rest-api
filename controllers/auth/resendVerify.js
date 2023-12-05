@@ -1,6 +1,7 @@
 const { HttpError } = require("../../helpers/index"); 
  const { User  } = require("../../models/users");
- const { PROJECT_URL } = process.env;
+const { PROJECT_URL } = process.env;
+ require("dotenv").config();
  const { sendEmail } = require("../../helpers/index");
 /* const  verify  = require("../../controllers/auth/verifyEmail"); */
  async function resendVerifyEmail(req, res) {
